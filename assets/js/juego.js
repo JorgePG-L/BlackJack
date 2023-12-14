@@ -5,8 +5,12 @@ const especiales = ['A','J','Q','K']
 let puntosJugador = 0;
 let puntosComputadora = 0;
 const puntosHTML = document.querySelectorAll('small');
+
 //referencias Html
-let victoriasJugador
+let victoriasJugador = 0;
+let victoriasComputador = 0;
+const partidasGanadas  = document.querySelectorAll('a');
+
 const divCartasJugador = document.querySelector('#jugador-cartas')
 const divCartasComputadora = document.querySelector('#computador-cartas')
 
@@ -66,7 +70,7 @@ const turnoComputadora = (puntosMinimos) => {
     const imgCarta = document.createElement('img')
     imgCarta.src = `assets/cartas/${carta}.png `
     imgCarta.classList.add('carta')
-    puntosHTML[1].innerText = puntosComputadora;
+    partidasGanadas[1].innerText = puntosComputadora;
     divCartasComputadora.append(imgCarta)
     }
     while(( puntosComputadora <= puntosMinimos ) && ( puntosMinimos <= 21 ));
@@ -83,13 +87,15 @@ btnPedir.addEventListener('click', () => {
     const imgCarta = document.createElement('img')
     imgCarta.src = `assets/cartas/${carta}.png `
     imgCarta.classList.add('carta')
-    puntosHTML[0].innerText = puntosJugador;
+    victoriasComputador += 1;
+    puntosHTML[1].innerText = victoriasComputador;
     divCartasJugador.append(imgCarta)
     if (puntosJugador > 21) {
         console.warn('lo siento perdiste')
         btnPedir.disabled = true;
         btnParar.disabled = true;
         turnoComputadora(1)
+        puntosHTML[1].innerText = puntosComputadora;
     } else if (puntosJugador === 21){
         console.log('Genial ganaste')
         btnPedir.disabled = true;
